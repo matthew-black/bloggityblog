@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
-include BCrypt
+  include BCrypt
 
-   #--BCrypt gem to hash and validate passwords--#
-  validates :full_name, :username, :email, presence: true
+  has_many :posts
+
+  validates :username, :email, presence: true
   validates :username, :email, uniqueness: true
   validate :validate_password
   validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
@@ -30,7 +31,7 @@ include BCrypt
     if @raw_password.nil?
       errors.add(:password, "is required")
     elsif @raw_password.length < 6
-      errors.add(:password, "must be 6 characters or more")
+      errors.add(:password, "must be 6+ chars")
     end
   end
 end

@@ -25,23 +25,13 @@
 </head>
 
 <body class="container">
-    <% if logged_in? %>
-    <nav>
-      <ul>
-        <li><a href="/">home</a></li>  |
-        <li><a href="/users/<%= current_user.id %>"><%= current_user.username %></a></li>  |
-        <li><a><%= erb :"/sessions/_delete" %></a></li>
-      </ul>
-    </nav>
+  <div id="session-manager" class="right">
+  <% if logged_in? %>
+    <%= erb :"sessions/_logged_in_nav", layout: false %>
   <% else %>
-    <nav>
-      <ul>
-        <li><a href="/">home</a></li>  |
-        <li><a href="/sessions/new">login</a></li>  |
-        <li><a href="/users/new">register</a></li>
-      </ul>
-    </nav>
+    <%= erb :"sessions/_logged_out_nav", layout: false %>
   <% end %>
+  </div>
   <main>
     <%= yield %>
   </main>
